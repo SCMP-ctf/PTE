@@ -1,6 +1,4 @@
-# Platform Test Edition
-
-Welcome to the Pwn2Win CTF **Platform Test Edition**.
+# SCMPv8{ctf} 
 
 ## Registration
 
@@ -21,8 +19,8 @@ Welcome to the Pwn2Win CTF **Platform Test Edition**.
    
 4. All team members must clone the repository and install the dependencies:
    ```bash
-   git clone git@github.com:pwn2winctf/PTE.git
-   cd PTE
+   git clone git@github.com:SCMP-ctf/SCMPv8.git
+   cd SCMPv8
    sudo apt-get install libsodium18
    sudo -H pip install -r pip-requirements.txt
    ```
@@ -47,7 +45,7 @@ Welcome to the Pwn2Win CTF **Platform Test Edition**.
 
 ## Challenges
 
-Challenges are available on https://pwn2winctf.github.io.
+~~Challenges are available on https://pwn2winctf.github.io.~~ **TODO**
 
 If you prefer to browse them locally, you may also run a local webserver by typing `./ctf serve`, or list challenges through the command line interface:
 ```bash
@@ -58,7 +56,7 @@ If you prefer to browse them locally, you may also run a local webserver by typi
 
 To submit a flag:
 ```bash
-./ctf submit --chall chall-id 'CTF-BR{flag123}'
+./ctf submit --chall chall-id 'SCMPv8{fl4g_4qu1}'
 ```
 
 You may omit `--chall chall-id` from the command, however it will be slower to run this way. In this case, we will look for the flag in every challenge released until now.
