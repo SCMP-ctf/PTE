@@ -1,7 +1,5 @@
 # SCMPv8{ctf} 
 
-**Important**: This test edition is over. If you are looking for registration on Pwn2Win 2017, go to https://github.com/pwn2winctf/2017.
-
 ## Registration
 1. All team members must have a GitHub account and [configure a SSH key in their account settings](https://github.com/settings/keys).
 
@@ -42,7 +40,7 @@
 
 ## Challenges
 
-~~Challenges are available on https://pwn2winctf.github.io.~~ **TODO**
+~~Challenges are available on https://pwn2winctf.github.io.~~ **TODO** __Definir onde ficarão hospedados os desafios__
 
 If you prefer to browse them locally, you may also run a local webserver by typing `./ctf serve`, or list challenges through the command line interface:
 ```bash
