@@ -51,7 +51,7 @@ If you prefer to browse them locally, you may also run a local webserver by typi
 
 To submit a flag:
 ```bash
-./ctf submit --chall chall-id 'SCMPv8{fl4g_4qu1}'
+./ctf submit --chall chall-id 'CTF-BR{fl4g_4qu1}'
 ```
 
 You may omit `--chall chall-id` from the command, however it will be slower to run this way. In this case, we will look for the flag in every challenge released until now.
