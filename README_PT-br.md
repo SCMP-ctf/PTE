@@ -58,7 +58,7 @@ Se você preferir acessá-los localmente, você também pode rodar um webserver 
 
 Para submeter uma flag:
 ```bash
-./ctf submit --chall chall-id 'SCMPv8{fl4g_4qu1}'
+./ctf submit --chall chall-id 'CTF-BR{fl4g_4qu1}'
 ```
 
 Você pode omitir `--chall chall-id` do comando, porém será mais lento desta forma. Neste caso, iremos procurar pela flag em todos os desafios lançados até agora.
