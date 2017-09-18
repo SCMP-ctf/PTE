@@ -5,7 +5,6 @@ const ChallengeModal = Vue.component('challenge-modal', {
                 <h4>{{challenge.title}}</h4>
                 <p>{{challenge.description}}</p>
                 <p>Total solves: {{challenge.solves}}</p>
-                <p>Points: {{challenge.points}}</p>
                 <p>Categories: {{challenge.tags.join(', ')}}</p>
             </div>
             <div class="modal-footer">
@@ -29,7 +28,6 @@ const ChallengeComponent = Vue.component('challenge-card', {
                 </div>
                 <div class="card-action">
                     <div class="row"><span v-for="tag in challenge.tags" class="new badge" data-badge-caption="">{{tag}}</span></div>
-                    <div class="row"><span class="new badge red" data-badge-caption="points">{{challenge.points}}</span></div>
                 </div>
             </div>
         </div>

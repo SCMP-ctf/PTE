@@ -12,7 +12,7 @@ const createPooling = (promise, cb, intervalTime) => {
             cb(await promise());
             interval = setInterval(async () => {
                 cb(await promise());
-            }, intervalTime || 10000);
+            }, intervalTime || 60000);
         },
         stop () {
             this.isStarted = false
