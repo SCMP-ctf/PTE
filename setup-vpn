@@ -1,0 +1,82 @@
+#!/bin/bash -e
+if [[ $# != 3 ]]; then
+	echo "usage: $0 vpn_addr team_id password"
+	exit 1
+fi
+vpn_addr="$1"
+team_id="$2"
+password="$3"
+
+echo "team-${team_id}" > auth.txt
+echo "$password" >> auth.txt
+
+vpn_port=$((10000 + $team_id))
+
+cat > ctf.ovpn <<EOF
+client
+setenv SERVER_POLL_TIMEOUT 4
+nobind
+remote ${vpn_addr}
+port ${vpn_port}
+proto udp
+dev tun
+ns-cert-type server
+auth-user-pass
+
+user nobody
+group nogroup
+persist-tun
+persist-key
+
+cipher AES-128-CBC
+verb 3
+
+auth-user-pass auth.txt
+script-security 2
+tls-verify "./verify-cn team-${team_id}"
+
+<ca>
+-----BEGIN CERTIFICATE-----
+MIIDtTCCAp2gAwIBAgIJAMRNhlY1+i/oMA0GCSqGSIb3DQEBCwUAMEUxCzAJBgNV
+BAYTAkJSMRAwDgYDVQQKEwdQd24yV2luMRMwEQYDVQQDEwpQd24yV2luIENBMQ8w
+DQYDVQQpEwZzZXJ2ZXIwHhcNMTcwNzE5MTgxNjMxWhcNMjcwNzE3MTgxNjMxWjBF
+MQswCQYDVQQGEwJCUjEQMA4GA1UEChMHUHduMldpbjETMBEGA1UEAxMKUHduMldp
+biBDQTEPMA0GA1UEKRMGc2VydmVyMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIB
+CgKCAQEAtClPtHc6ecfkdnqw/K2m0BtHhY+PcUbhWuhnibYaLNTdL8p39gvCU3m3
+Y74kZcLWqqXS4y4GU/rILGiGKRQZLPUsuU0oVGhEL3acgQTCnAqd6EZs8IzaRnV/
+xHoJbyPnUz/RAmTEBda5wqadkoy7lUk6v2hDbIMMqK513OQQ/cP7twI6U4gGNSYE
+ZIO1jAq5I4hX3HB93Hvx5YiMonBPMvMdDyUDgBzTsm33dc/ph8pEbS3za5Go7MpD
+T9MlSK5vpyRNG/7OHCjR3HoWGS5W/0dL0UBLjEjOK1b9MI7kUf8xLKq+r4Ayq9nJ
+FrPG3l8+/WdK5ldQJx8U6FlpIdgeywIDAQABo4GnMIGkMB0GA1UdDgQWBBQBfiR8
+b6iQtXR8juFJnXvxTfY5jDB1BgNVHSMEbjBsgBQBfiR8b6iQtXR8juFJnXvxTfY5
+jKFJpEcwRTELMAkGA1UEBhMCQlIxEDAOBgNVBAoTB1B3bjJXaW4xEzARBgNVBAMT
+ClB3bjJXaW4gQ0ExDzANBgNVBCkTBnNlcnZlcoIJAMRNhlY1+i/oMAwGA1UdEwQF
+MAMBAf8wDQYJKoZIhvcNAQELBQADggEBAEgj5B14xa91d1clazMT1cNBcxV6xlmx
+qGH8tAxDo1Z+woysETMn4JsqBgAXDAxmBspOTWpJHy+MMOni4kMrjLFbD1M5UShs
+tB4/pbws9QQp60HUi/czLruNbWrN3HZ54ODp1xljc7srE165+kGxXLRvMX+bkMHH
+4O7oDuMTAqni26m00gWka+/IxVILhz9und0lYCzGwYBb4RDFenFZJT4Uvr8O6G1F
+o3bKoyfPBaLx18dyMppG6a7du9ZcQ8UMqgW1tQCXCbqGy/nF5VX4dkuKYLyAdDiU
+5HOCagvXqQfYm9y5/vhXiWnEEXytT3z+YXjqdouue4DEM8JoT+GE1Y8=
+-----END CERTIFICATE-----
+</ca>
+EOF
+
+cat > verify-cn <<EOF
+#!/usr/bin/perl
+die "usage: verify-cn expected_cn certificate_depth subject" if (@ARGV != 3);
+(\$expected_cn, \$depth, \$x509) = @ARGV;
+if (\$depth == 0) {
+    if (\$x509 =~ / CN=([^,]+)/) {
+        \$cn = \$1;
+        if (\$expected_cn eq \$cn) {
+            exit 0;
+        }
+    }
+    exit 1;
+}
+exit 0;
+EOF
+
+chmod +x verify-cn
+
+echo "Run: sudo openvpn ctf.ovpn"
