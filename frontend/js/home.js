@@ -29,7 +29,7 @@ const News = Vue.component('news', {
         solves: []
     }),
     methods: {
-        formatDate: date => moment(date).format('DD-MM-YYYY HH:mm:ss'),
+        formatDate: date => moment(date, "X").format('DD-MM-YYYY HH:mm:ss'),
         loadNews: function(news) {
             this.news = news;
         },
