@@ -44,7 +44,7 @@ const News = Vue.component('news', {
                 });
                 return reducer;
             }, [])
-            .sort((solveA, solveB) => solveA <= solveB);
+            .sort((solveA, solveB) => solveA.time <= solveB.time);
         }
     },
     mounted: function() {
