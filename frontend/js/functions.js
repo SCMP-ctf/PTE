@@ -21,15 +21,20 @@ const createPooling = (promise, cb, intervalTime) => {
     }
 };
 
+const converter = new showdown.Converter();
 const getSubmisionsPath = () => settings.submissions_project.split('/')[1];
+const getTeamPath = teamName => sha256(teamName).splice(1, 0, '/').splice(5, 0, '/');
+
 
 const getSettings = () => $.getJSON('settings.json');
-const getNews = () => $.getJSON('submissions/news.json');
+const getNews = () => $.getJSON(`/${getSubmisionsPath()}/news.json`);
 const getChallenges = () => $.getJSON('challenges/index.json');
-const getChallenge = (id) => $.getJSON(`challenges/${id}.json`);
+const getChallenge = id => $.getJSON(`challenges/${id}.json`);
+const getChallengeDescription = (id, lang) => $.get(`challenges/${id}.${lang}.md`);
 const getSolvedChallenges = () => $.getJSON(`/${getSubmisionsPath()}/accepted-submissions.json`);
-const getTeam = hash => $.getJSON(`/${getSubmisionsPath()}/${hash}/team.json`);
-const getTeamMembers = hash => $.getJSON(`/${getSubmisionsPath()}/${hash}/members.json`);
+const getTeam = teamName => $.getJSON(`/${getSubmisionsPath()}/${getTeamPath(teamName)}/team.json`);
+const getTeamMembers = teamName => $.getJSON(`/${getSubmisionsPath()}/${getTeamPath(teamName)}/members.json`);
+const getLocaleMessages = lang => $.getJSON(`frontend/locales/${lang}.json`)
 
 String.prototype.splice = function(idx, rem, str) {
     return this.slice(0, idx) + str + this.slice(idx + Math.abs(rem));
