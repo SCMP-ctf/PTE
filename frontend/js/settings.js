@@ -22,7 +22,7 @@ const Settings = Vue.component('settings', {
             const lang = $('select').val();
             Cookies.set('team', this.team);
             Cookies.set('lang', lang);
-            app.$i18n.locale = lang.toLowerCase();
+            app.$i18n.locale = lang;
         }
     },
     mounted() {
