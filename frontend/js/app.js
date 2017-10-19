@@ -50,11 +50,11 @@ const app = new Vue({
         this.loaded = true;
     },
     i18n: new VueI18n({
-        locale: Cookies.get('lang').toLowerCase(),
-        fallbackLocale: 'en',
+        locale: Cookies.get('lang'),
+        fallbackLocale: 'En',
         messages: {
-            en: enLocale,
-            pt: ptLocale
+            En: enLocale,
+            Pt: ptLocale
         } 
     })
 }).$mount('#app');
