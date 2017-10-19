@@ -1,4 +1,7 @@
 Vue.use(VueI18n);
+if (!Cookies.get('lang')) {
+    Cookies.set('lang', 'En');
+}
 const routes = [
     {
         path: '/',

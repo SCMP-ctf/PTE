@@ -30,7 +30,7 @@ const getSettings = () => $.getJSON('settings.json');
 const getNews = () => $.getJSON(mountUrl(`/${getSubmisionsPath()}/news.json`));
 const getChallenges = () => $.getJSON(mountUrl('challenges/index.json'));
 const getChallenge = id => $.getJSON(mountUrl(`challenges/${id}.json`));
-const getChallengeDescription = (id, lang) => $.get(mountUrl(`challenges/${id}.${lang}.md`));
+const getChallengeDescription = (id, lang) => $.get(mountUrl(`challenges/${id}.${lang.toLowerCase()}.md`));
 const getSolvedChallenges = () => $.getJSON(mountUrl(`/${getSubmisionsPath()}/accepted-submissions.json`, 1000 * 60));
 const getTeam = teamName => $.getJSON(mountUrl(`/${getSubmisionsPath()}/${getTeamPath(teamName)}/team.json`));
 const getTeamMembers = teamName => $.getJSON(mountUrl(`/${getSubmisionsPath()}/${getTeamPath(teamName)}/members.json`));
