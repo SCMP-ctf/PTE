@@ -21,7 +21,7 @@ const ChallengeModal = Vue.component('challenge-modal', {
     methods: {
         loadDescription: async function(challenge) {
             const lang = Cookies.get('lang').toLowerCase();
-            
+
             if (!this.descriptionMap[lang]) {
                 this.descriptionMap[lang] = {};
             }
@@ -126,7 +126,7 @@ const Challenges = Vue.component('challenges', {
             }, {});
 
             this.challenges.forEach((challenge, index) => {
-                this.challenges.splice(index, 1, Object.assign({}, challenge, { 
+                this.challenges.splice(index, 1, Object.assign({}, challenge, {
                     solves: solves[challenge.id] || 0,
                     points: this.calculatePoints(solves[challenge.id]),
                     solved: teamSolves.has(challenge.id)
@@ -135,7 +135,7 @@ const Challenges = Vue.component('challenges', {
         },
         calculatePoints: function(solves) {
             const { K, V, minpts, maxpts } = settings['dynamic_scoring'];
-            return parseInt(Math.max(minpts, Math.floor(maxpts - K * Math.log(((solves + 1 || 1) + V)/(1 + V), 2))))
+            return parseInt(Math.max(minpts, Math.floor(maxpts - K * Math.log2(((solves + 1 || 1) + V)/(1 + V)))))
         },
         openModal: function(challenge) {
             this.selectedChallenge = challenge;
