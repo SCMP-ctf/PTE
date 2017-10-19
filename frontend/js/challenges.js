@@ -113,7 +113,7 @@ const Challenges = Vue.component('challenges', {
         },
         loadSubmissions: function(acceptedSubmissions) {
             const userTeam = Cookies.get('team');
-            let teamSolves = [];
+            let teamSolves = new Set([]);
             solves = acceptedSubmissions.standings.reduce((reducer, { taskStats, team }) => {
                 Object.keys(taskStats).forEach(chall => {
                     reducer[chall]++ || (reducer[chall] = 1)

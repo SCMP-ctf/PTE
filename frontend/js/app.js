@@ -1,7 +1,4 @@
-$.ajaxSetup({ cache: false });
-
 Vue.use(VueI18n);
-
 const routes = [
     {
         path: '/',
